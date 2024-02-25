@@ -1,0 +1,82 @@
+openapi: 3.0.3
+info:
+  title: SampleApi
+  description: Sample backend service
+  version: 1.0.0
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas: {}
+paths:
+  /users:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                age:
+                  type: number
+                  nullable: true
+                email:
+                  type: string
+                  format: email
+              required:
+                - name
+                - email
+              additionalProperties: false
+        required: true
+      responses:
+        "200":
+          description: Default Response
+  /users/{userId}:
+    get:
+      parameters:
+        - schema:
+            type: number
+          in: path
+          name: userId
+          required: true
+      responses:
+        "200":
+          description: Default Response
+    delete:
+      parameters:
+        - schema:
+            type: number
+          in: path
+          name: userId
+          required: true
+      responses:
+        "200":
+          description: Default Response
+    patch:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                  format: email
+              additionalProperties: false
+      parameters:
+        - schema:
+            type: number
+          in: path
+          name: userId
+          required: true
+      responses:
+        "200":
+          description: Default Response
+servers:
+  - url: http://localhost:3000
